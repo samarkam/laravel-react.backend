@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -62,5 +61,29 @@ class AuthController extends Controller
     {
         return response()->json(auth()->user());
     }
+    public function validateToken(Request $request)
+    {
+        try {
+            // Get the token from the request
+            $token = JWTAuth::getToken();
+
+            if (!$token) {
+                return response()->json(['message' => 'Token not provided'], 400);
+            }
+
+            // Validate the token
+            $user = JWTAuth::authenticate($token);
+
+            return response()->json([
+                'message' => 'Token is valid',
+                'user' => $user, // Include user details if needed
+            ]);
+        } catch (JWTException $e) {
+            return response()->json(['message' => 'Token is invalid'], 401);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
+        }
+    }
+
 }
 
