@@ -12,26 +12,22 @@ use Carbon\Carbon;
 class AuthController extends Controller
 {
     // Register a new user
-    public function register(Request $request)
+    public function register(Request $request) 
     {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'role' => 'required|string',  
             'avatar' => 'nullable',  
-            'isActive' => 'nullable',  
         ]);
-    
-
     
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role' => $request->role,
-            'avatar' =>  $request->avatar,  
-            'isActive' => null,
+            'role' => "CLIENT",
+            'avatar' => $request->avatar,  
+            'isActive' => false, 
         ]);
     
         return response()->json(['message' => 'User created successfully'], 201);
