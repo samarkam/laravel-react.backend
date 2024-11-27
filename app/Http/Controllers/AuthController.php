@@ -18,16 +18,25 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
+            'role' => 'required|string',  
+            'avatar' => 'nullable',  
+            'isActive' => 'nullable',  
         ]);
+    
 
+    
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'role' => $request->role,
+            'avatar' =>  $request->avatar,  
+            'isActive' => null,
         ]);
-
+    
         return response()->json(['message' => 'User created successfully'], 201);
     }
+    
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
