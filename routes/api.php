@@ -3,9 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserProfileController;
 
-Route::post('register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/validate-token', [AuthController::class, 'validateToken']);
+Route::post('/register', [AuthController::class, 'register']);
 Route::post('/user', [AuthController::class, 'user']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
