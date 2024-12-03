@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\UserProfileController;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/validate-token', [AuthController::class, 'validateToken']);
@@ -30,3 +31,25 @@ Route::post("/articles",[ArticleController::class,'store']);
 Route::put("/articles/{id}",[ArticleController::class,'update']);
 Route::get("/articles/{id}",[ArticleController::class,'show']);
 Route::delete("/articles/{id}",[ArticleController::class,'destroy']);
+
+
+Route::get("/userProfile",[UserProfileController::class,'index']);
+Route::post("/userProfile",[UserProfileController::class,'store']);
+Route::put("/userProfile/{id}",[UserProfileController::class,'update']);
+Route::get("/userProfile/{id}",[UserProfileController::class,'show']);
+Route::delete("/userProfile/{id}",[UserProfileController::class,'destroy']);
+
+Route::post( '/user-details', [UserProfileController::class, 'userDetails']);
+Route::put('/update-user/{id}', [UserProfileController::class, 'updateUser']);
+//Route::post('user-details', [UserProfileController::class, 'userDetails'])->middleware('auth.jwt');
+
+
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderDetailController;
+Route::post( "/orders",[OrderController::class,'store']);
+Route::get( "/orders/{id}",[OrderController::class,'show']);
+Route::get( "/orders/user/{id}",[OrderController::class,'getUserOrders']);
+
+
+Route::apiResource('orders', OrderController::class);
+Route::apiResource('order-details', OrderDetailController::class);

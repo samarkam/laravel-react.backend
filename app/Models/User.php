@@ -28,6 +28,11 @@ class User extends Authenticatable implements JWTSubject
         'isActive'
     ];
 
+
+    public function profile()
+{
+    return $this->hasOne(UserProfile::class);
+}
     /**
      * The attributes that should be hidden for serialization.
      *

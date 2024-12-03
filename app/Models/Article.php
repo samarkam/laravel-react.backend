@@ -16,4 +16,8 @@ class Article extends Model
     {
         return $this->belongsTo(Category::class,"categorieID");
     }
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetails::class);
+    }
 }
